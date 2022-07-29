@@ -1,10 +1,7 @@
 const core = require("@actions/core");
 const exec = require("@actions/exec");
 
-
-try {
-  const withOwner = core.getInput("with-owner");
-  let name = "";
+function getRepositoryName() {
   let myOutput = "";
   let myError = "";
 
@@ -24,19 +21,43 @@ try {
     options
   );
 
+  return myOutput;
+}
+
+try {
+  let name = "";
+
+  const repName = getRepositoryName()
+  const withOwner = core.getInput("with-owner");
+
   switch (withOwner) {
     case "false":
-      name = myOutput.split("/").reverse()[0];
+      name = repName.split("/").reverse()[0];
       break;
     case "true":
-      name = myOutput;
+      name = repName;
       break;
     default:
-      name = myOutput;
+      name = repName;
       break;
   }
 
-  core.setOutput("repository-name", name);
+  let casedName = ''
+  const stringCase = core.getInput("string-case");
+
+  switch (stringCase) {
+    case "lowercase":
+      casedName = name.toLowerCase();
+      break;
+    case "uppercase":
+      casedName = name.toUpperCase();
+      break;
+    default:
+      casedName = name;
+      break;
+  }
+
+  core.setOutput("repository-name", casedName);
 
   // Get the JSON webhook payload for the event that triggered the workflow
   const payload = JSON.stringify(context.payload, undefined, 2);
@@ -44,3 +65,5 @@ try {
 } catch (error) {
   core.setFailed(error.message);
 }
+
+
