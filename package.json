@@ -1,0 +1,22 @@
+{
+  "author": "Rubén Conde <code@rubn.dev>",
+  "bugs": {
+    "url": "https://github.com/MariachiBear/get-repo-name-action/issues"
+  },
+  "dependencies": {
+    "@actions/core": "^1.9.0",
+    "@actions/github": "^5.0.3"
+  },
+  "description": "",
+  "homepage": "https://github.com/MariachiBear/get-repo-name-action#readme",
+  "keywords": [],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "get-repo-name-action",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MariachiBear/get-repo-name-action.git"
+  },
+  "scripts": {},
+  "version": "1.0.0"
+}
