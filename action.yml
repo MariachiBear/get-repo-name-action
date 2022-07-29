@@ -1,16 +1,24 @@
 name: "Get Repository Name"
+
 description: "Get the repository name with or without the owner name"
+
 inputs:
   with-owner:
-    description: "The owner name should be added in the repository name ?"
+    description: "Defines if the owner name should be added in the name"
     required: false
     default: "false"
+  string-case:
+    description: "Special case to transform the repository name [lowercase, uppercase]"
+    required: false
+
 outputs:
   repository-name:
     description: "The name of the repository"
+
 runs:
   using: "node16"
   main: "dist/index.js"
+
 branding:
   icon: "align-left"
   color: "red"
