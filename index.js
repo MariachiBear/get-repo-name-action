@@ -1,9 +1,9 @@
 const core = require("@actions/core");
 const exec = require("@actions/exec");
 
+
 try {
-  // `who-to-greet` input defined in action metadata file
-  const withOwner = getInput("with-owner");
+  const withOwner = core.getInput("with-owner");
   let name = "";
   let myOutput = "";
   let myError = "";
@@ -36,11 +36,11 @@ try {
       break;
   }
 
-  setOutput("repository-name", name);
+  core.setOutput("repository-name", name);
 
   // Get the JSON webhook payload for the event that triggered the workflow
   const payload = JSON.stringify(context.payload, undefined, 2);
   console.log(`The event payload: ${payload}`);
 } catch (error) {
-  setFailed(error.message);
+  core.setFailed(error.message);
 }
