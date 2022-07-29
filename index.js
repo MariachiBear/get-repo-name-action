@@ -1,19 +1,38 @@
 const core = require("@actions/core");
-const github = require("@actions/github");
+const exec = require("@actions/exec");
+
 
 try {
   const withOwner = core.getInput("with-owner");
   let name = "";
+  let myOutput = "";
+  let myError = "";
+
+  const options = {};
+  options.listeners = {
+    stdout: (data) => {
+      myOutput += data.toString();
+    },
+    stderr: (data) => {
+      myError += data.toString();
+    },
+  };
+
+  await exec.exec(
+    "git config --get remote.origin.url | sed -e 's/^git@.*:([[:graph:]]*).git/\1/'",
+    [],
+    options
+  );
 
   switch (withOwner) {
     case "false":
-      name = github.context.repo.repo.split("/")[0];
+      name = myOutput.split("/").reverse()[0];
       break;
     case "true":
-      name = github.context.repo.repo;
+      name = myOutput;
       break;
     default:
-      name = github.context.repo.repo;
+      name = myOutput;
       break;
   }
 
