@@ -17,7 +17,7 @@ The name of the repository.
 ## Example usage
 
 ```yml
-uses: MariachiBear/get-repo-name-action@v1.0.1
+uses: MariachiBear/get-repo-name-action@v1.0.3
 with:
   with-owner: 'true'
 ```
