@@ -1,6 +1,23 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "baseBranches": [
+    "dependencies"
+  ],
   "extends": [
-    "config:base"
+    ":automergeDisabled",
+    ":docker",
+    ":enableVulnerabilityAlerts",
+    ":maintainLockFilesWeekly",
+    ":npm",
+    ":pinAllExceptPeerDependencies",
+    ":prConcurrentLimitNone",
+    ":prHourlyLimitNone",
+    ":renovatePrefix",
+    "config:base",
+    "github>whitesource/merge-confidence:beta",
+    "monorepo:nest",
+    "packages:eslint",
+    "replacements:all",
+    "schedule:nonOfficeHours"
   ]
 }
