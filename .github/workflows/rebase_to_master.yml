@@ -1,0 +1,38 @@
+name: Rebase to master
+on:
+  push:
+    branches:
+      - master
+
+  workflow_call:
+    inputs:
+      branch_name:
+        required: true
+        type: string
+
+jobs:
+  rebase:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to ${{ inputs.branch_name }}
+        if: ${{ inputs.branch_name != 0 }}
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ inputs.branch_name }}
+
+      - name: Checkout to dependencies
+        if: ${{ inputs.branch_name == 0 }}
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: dependencies
+
+      - env:
+          BRANCH_NAME: ${{ inputs.branch_name }}
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git rebase origin/master
+          [ -z $BRANCH_NAME ] && git push origin dependencies --force || git push origin $BRANCH_NAME --force
