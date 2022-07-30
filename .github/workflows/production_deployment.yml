@@ -1,0 +1,34 @@
+name: Production Deployment
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+  workflow_dispatch:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Get tag version
+        id: tag
+        uses: WyriHaximus/github-action-get-previous-tag@v1
+        with:
+          fallback: deprecated
+
+  develop_branch:
+    needs: [setup, continuous_integration, docker, ssh]
+
+    if: needs.setup.outputs.tag != 'deprecated'
+
+    uses: mariachibear/get-repo-name-action/.github/workflows/rebase_to_master.yml@master
+    with:
+      branch_name: "develop"
