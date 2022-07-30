@@ -4,22 +4,22 @@
     "url": "https://github.com/MariachiBear/get-repo-name-action/issues"
   },
   "dependencies": {
-    "@actions/core": "^1.9.0",
-    "@actions/exec": "^1.1.1",
-    "@actions/github": "^5.0.3",
-    "git-repo-name": "^1.0.1",
-    "git-username": "^1.0.0"
+    "@actions/core": "1.9.0",
+    "@actions/exec": "1.1.1",
+    "@actions/github": "5.0.3",
+    "git-repo-name": "1.0.1",
+    "git-username": "1.0.0"
   },
   "description": "",
   "devDependencies": {
-    "@vercel/ncc": "^0.34.0",
-    "eslint": "^8.20.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-node": "^4.1.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.7.1"
+    "@vercel/ncc": "0.34.0",
+    "eslint": "8.20.0",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-config-node": "4.1.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "prettier": "2.7.1"
   },
   "homepage": "https://github.com/MariachiBear/get-repo-name-action#readme",
   "keywords": [],
