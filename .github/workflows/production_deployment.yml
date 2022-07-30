@@ -29,6 +29,6 @@ jobs:
 
     if: needs.setup.outputs.tag != 'deprecated'
 
-    uses: mariachibear/get-repo-name-action/.github/workflows/rebase_to_master.yml@master
+    uses: mariachibear/get-repo-name-action/.github/workflows/rebase_to_master.yml@main
     with:
       branch_name: "develop"
