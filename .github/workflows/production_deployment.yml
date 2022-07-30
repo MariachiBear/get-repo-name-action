@@ -25,7 +25,7 @@ jobs:
           fallback: deprecated
 
   develop_branch:
-    needs: [setup, continuous_integration, docker, ssh]
+    needs: [setup]
 
     if: needs.setup.outputs.tag != 'deprecated'
 
