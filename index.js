@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
-const core = require('@actions/core');
-const exec = require('@actions/exec');
-const github = require('@actions/github');
+import { getInput, setFailed, setOutput } from '@actions/core';
+import { exec as _exec } from '@actions/exec';
+import { context } from '@actions/github';
 
 async function getRepositoryName() {
   let myOutput = '';
@@ -17,7 +17,7 @@ async function getRepositoryName() {
     },
   };
 
-  await exec.exec('git config --get remote.origin.url', [], options);
+  await _exec('git config --get remote.origin.url', [], options);
 
   const repository = myOutput.match('(?:git@|https://)github.com[:/](.*).git');
 
@@ -27,40 +27,43 @@ async function getRepositoryName() {
 try {
   let name = '';
 
-  getRepositoryName().then((repName) => {
-    const withOwner = core.getInput('with-owner');
-    const [owner, repo] = repName.split('/');
+  const repName = await getRepositoryName();
 
-    switch (withOwner) {
-      case 'false':
-        name = repo;
-        break;
-      default:
-        name = `${owner}/${repo}`;
-        break;
-    }
+  const withOwner = getInput('with-owner');
 
-    let casedName = '';
-    const stringCase = core.getInput('string-case');
+  const [owner, repo] = repName.split('/');
 
-    switch (stringCase) {
-      case 'lowercase':
-        casedName = name.toLowerCase();
-        break;
-      case 'uppercase':
-        casedName = name.toUpperCase();
-        break;
-      default:
-        casedName = name;
-        break;
-    }
+  switch (withOwner) {
+    case 'false':
+      name = repo;
+      break;
+    default:
+      name = `${owner}/${repo}`;
+      break;
+  }
 
-    core.setOutput('repository-name', casedName);
-  });
+  let casedName = '';
+
+  const stringCase = getInput('string-case');
+
+  switch (stringCase) {
+    case 'lowercase':
+      casedName = name.toLowerCase();
+      break;
+    case 'uppercase':
+      casedName = name.toUpperCase();
+      break;
+    default:
+      casedName = name;
+      break;
+  }
+
+  setOutput('repository-name', casedName);
 
   // Get the JSON webhook payload for the event that triggered the workflow
-  const payload = JSON.stringify(github.context.payload, undefined, 2);
+  const payload = JSON.stringify(context.payload, undefined, 2);
+
   console.log(`The event payload: ${payload}`);
 } catch (error) {
-  core.setFailed(error.message);
+  setFailed(error.message);
 }
