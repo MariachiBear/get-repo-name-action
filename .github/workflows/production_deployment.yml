@@ -4,31 +4,32 @@ on:
   push:
     tags:
       - "v*.*.*"
-
   workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag to deploy
+        required: true
+        type: string
 
 jobs:
   setup:
     runs-on: ubuntu-latest
 
     outputs:
-      tag: ${{ steps.tag.outputs.tag }}
+      tag: ${{ steps.get-tag.outputs.tag }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Get tag version
-        id: tag
-        uses: WyriHaximus/github-action-get-previous-tag@v1
+        id: get-tag
+        uses: wyrihaximus/github-action-get-previous-tag@v1
         with:
-          fallback: deprecated
+          fallback: ${{ inputs.tag }}
 
-  develop_branch:
+  develop-branch:
     needs: [setup]
-
-    if: needs.setup.outputs.tag != 'deprecated'
-
-    uses: mariachibear/get-repo-name-action/.github/workflows/rebase_to_master.yml@main
+    uses: ./.github/workflows/rebase_to_master.yml
     with:
       branch_name: "develop"
