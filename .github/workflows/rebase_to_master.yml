@@ -1,9 +1,9 @@
 name: Rebase to master
+
 on:
   push:
     branches:
-      - main
-
+      - master
   workflow_call:
     inputs:
       branch_name:
@@ -29,10 +29,11 @@ jobs:
           fetch-depth: 0
           ref: dependencies
 
-      - env:
+      - name: Rebase branch to ${{ github.event.repository.default_branch }}
+        env:
           BRANCH_NAME: ${{ inputs.branch_name }}
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git rebase origin/main
+          git rebase origin/${{ github.event.repository.default_branch }}
           [ -z $BRANCH_NAME ] && git push origin dependencies --force || git push origin $BRANCH_NAME --force
