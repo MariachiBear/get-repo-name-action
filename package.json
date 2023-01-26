@@ -12,7 +12,7 @@
   },
   "description": "",
   "devDependencies": {
-    "@vercel/ncc": "0.36.0",
+    "@vercel/ncc": "0.36.1",
     "eslint": "8.29.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-config-node": "4.1.0",
