@@ -10,9 +10,9 @@ This action gets the repository name and returns it as an output
 
 ### `string-case`
 
-**Not Required** | Special case to transform the repository name. | Possible values : [`"lowercase"`, `"uppercase"`,`"camelCase"`,`"capitalCase"`,`"constantCase"`,`"dotCase"`,`"headerCase"`,`"noCase"`,`"paramCase"`,`"pascalCase"`,`"pathCase"`,`"sentenceCase"`,`"snakeCase"`]
+**Not Required** | Special case to transform the repository name. | Possible values : [`"lowercase"`, `"uppercase"`, `"camelCase"`,`"capitalCase"`, `"constantCase"`, `"dotCase"`, `"headerCase"`, `"noCase"`, `"paramCase"`, `"pascalCase"`, `"pathCase"`, `"sentenceCase"`, `"snakeCase"`]
 
-<small>The case conversion is made with the [change-case]([https://](https://github.com/blakeembrey/change-case)) npm package.</small>
+The case conversion is made with the [`change-case`](https://github.com/blakeembrey/change-case) npm package.
 
 ## Outputs
 
