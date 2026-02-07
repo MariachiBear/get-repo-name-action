@@ -24,7 +24,7 @@ jobs:
 
       - name: Get tag version
         id: get-tag
-        uses: wyrihaximus/github-action-get-previous-tag@v1
+        uses: wyrihaximus/github-action-get-previous-tag@v2
         with:
           fallback: ${{ inputs.tag }}
 
